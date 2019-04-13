@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var authRouter = require('./auth/');
+var googleAuthRouter = require('./google-auth');
 
-router.use('/auth',authRouter)
+router.use('/google',googleAuthRouter)
 
 module.exports = router;
