@@ -8,7 +8,7 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     google: {
-        google_id: {
+        id: {
             type: String,
         },
         email: {
