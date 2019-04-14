@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
 require('./config/passport-config');
+require('./config/mongoose-config');
 
 var indexRouter = require('./routes/');
 
