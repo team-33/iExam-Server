@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var authRouter = require('./auth/');
+const passport = require('passport');
 
-var authMiddle = (req,res,next) => {
-    if(req.body.jwt) next();
-    else res.status(401).send({status:1200,message:'unauthorized'});
-}
+var authRouter = require('./auth');
+var paperRouter = require('./papers');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
 
 router.use('/auth',authRouter)
+router.use('/papers',passportJWT,paperRouter)
 
 module.exports = router;
