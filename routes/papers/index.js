@@ -5,8 +5,8 @@ const passport = require('passport');
 const Paper = require('../../models/paper-model');
 
 router.get('/:subject/:year' ,async (req,res,next) => {
-    var {subject,year} = req.params;
-    var aggregates = {
+    const {subject,year} = req.params;
+    const aggregates = {
         $match:{
             subject:{
                 $regex:'^'+subject+'$',$options:'i'
@@ -21,7 +21,8 @@ router.get('/:subject/:year' ,async (req,res,next) => {
         res.status(500).send(e.message);
     }
     
-})
+});
+
 router.get('/' ,async (req,res,next) => {
     try{
     var papers = await Paper.find();
@@ -30,6 +31,17 @@ router.get('/' ,async (req,res,next) => {
         console.log('error',e);
         res.status(500).send('error');
     }
-})
+});
+
+router.post('/new' ,async (req,res,next) => {
+    try{
+        var newPaper = new Paper(req.body);
+        console.log(await newPaper.save());
+        res.send(newPaper);
+    } catch (e) {
+        console.log('error',e);
+        res.status(500).send('error');
+    }
+});
 
 module.exports = router;
