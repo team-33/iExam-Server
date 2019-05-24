@@ -35,7 +35,7 @@ router.get('/' ,async (req,res,next) => {
 router.post('/new' ,async (req,res,next) => {
     try{
         var newPaper = new Paper(req.body);
-        console.log(await newPaper.save());
+        await newPaper.save();
         res.send(newPaper);
     } catch (e) {
         console.log('error',e);
