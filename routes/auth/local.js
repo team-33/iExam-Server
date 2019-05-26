@@ -8,8 +8,7 @@ const {validateBody, schemas} = require('./../../helpers/helper');
 const passportSignIn = passport.authenticate('local', {session: false});
 
 router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, next) => {
-    console.log(req.body);
-    const {email, password,given_name,family_name} = req.body;
+    const {email, password, given_name, family_name} = req.body;
 
     // Check if there is a user with the same email
     const foundUser = await User.findOne({"local.email": email});
