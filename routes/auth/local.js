@@ -9,7 +9,7 @@ const passportSignIn = passport.authenticate('local', {session: false});
 
 router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, next) => {
     console.log(req.body);
-    const {email, password} = req.body;
+    const {email, password,given_name,family_name} = req.body;
 
     // Check if there is a user with the same email
     const foundUser = await User.findOne({"local.email": email});
@@ -21,8 +21,10 @@ router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, 
     const newUser = new User({
         method: 'local',
         local: {
-            email: email,
-            password: password,
+            email,
+            password,
+            family_name,
+            given_name,
         }
     });
 

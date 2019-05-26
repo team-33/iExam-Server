@@ -72,7 +72,7 @@ passport.use(new LocalStrategy({
             //find the user by given email
             const user = await User.findOne({"local.email": email});
 
-            //ifnot, handle it
+            //if not, handle it
             if (!user) {
                 return done(null, false);
             }
