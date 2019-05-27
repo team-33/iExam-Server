@@ -7,7 +7,7 @@ const {validateBody, schemas} = require('./../../helpers/helper');
 
 const passportSignIn = passport.authenticate('local', {session: false});
 
-router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, next) => {
+router.route('/signup').post(validateBody(schemas.authSignUpSchema), async (req, res, next) => {
     const {email, password, given_name, family_name} = req.body;
 
     // Check if there is a user with the same email
@@ -24,6 +24,7 @@ router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, 
             password,
             family_name,
             given_name,
+            photo: '/male.png'
         }
     });
 
@@ -36,7 +37,7 @@ router.route('/signup').post(validateBody(schemas.authSchema), async (req, res, 
 });
 
 router.route('/signin')
-    .post(validateBody(schemas.authSchema), passportSignIn, async (req, res, next) => {
+    .post(validateBody(schemas.authSignInSchema), passportSignIn, async (req, res, next) => {
         // Generate token
         const token = jwt.sign({id: req.user.id}, process.env.JWT_SECRET_KEY);
         res.status(200).json({token});
