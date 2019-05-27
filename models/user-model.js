@@ -4,7 +4,7 @@ var userSchema = new mongoose.Schema({
     method: {
         type: String,
         //more methods will add
-        enum: ['google'],
+        enum: ['google', 'local'],
         required: true
     },
     google: {
@@ -15,16 +15,39 @@ var userSchema = new mongoose.Schema({
             type: String,
             lowercase: true
         },
-        family_name:{
-            type:String
+        family_name: {
+            type: String
         },
-        given_name:{
-            type:String
+        given_name: {
+            type: String
         },
-        photo:{
-            type:String
+        photo: {
+            type: String
+        }
+    },
+    local: {
+        email: {
+            type: String,
+            lowercase: true,
+        },
+        family_name: {
+            type: String
+        },
+        given_name: {
+            type: String
+        },
+        photo: {
+            type: String
+        },
+        password: {
+            type: String
         }
     }
-})
+});
 
-module.exports = mongoose.model('user',userSchema);
+//TODO: add encryption to password
+userSchema.methods.isValidPassword = async function (newPassword) {
+    return newPassword === this.local.password;
+};
+
+module.exports = mongoose.model('user', userSchema);

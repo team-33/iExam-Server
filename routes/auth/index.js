@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var googleAuthRouter = require('./google-auth');
-const passport = require('passport');
+var localAuthRouter = require('./local');
 
-router.use('/google',googleAuthRouter)
+router.use('/google', googleAuthRouter);
+router.use('/local', localAuthRouter);
 
 module.exports = router;
