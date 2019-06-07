@@ -3,7 +3,7 @@ var router = express.Router();
 
 const Paper = require('../../models/paper-model');
 
-router.get('/:subject/:year' ,async (req,res,next) => {
+router.get('/:subject/:year/:id' ,async (req,res,next) => {
     const {subject,year} = req.params;
     const aggregates = {
         $match:{
