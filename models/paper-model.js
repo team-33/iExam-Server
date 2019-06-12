@@ -28,6 +28,6 @@ var paperSchema = new mongoose.Schema({
         type:Number
     }
     
-})
+});
 
 module.exports = mongoose.model('papers',paperSchema);
