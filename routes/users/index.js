@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var User = require('./../../models/user-model');
 
 router.get('/profile', (req, res) => {
     var user;
@@ -18,5 +19,17 @@ router.get('/profile', (req, res) => {
 
     res.send(user);
 });
+
+router.get('/all', async (req, res) => {
+
+    var users = await User.find();
+    users.map((user, key) => {
+        user.local.password = undefined;
+        if (user.method === 'google') users[key] = user.google;
+        if (user.method === 'local') users[key] = user.local;
+    });
+    res.send(users);
+});
+
 
 module.exports = router;
