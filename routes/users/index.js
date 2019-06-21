@@ -31,5 +31,11 @@ router.get('/all', async (req, res) => {
     res.send(users);
 });
 
+router.delete('/profile/delete', async (req, res) => {
+    var user = await User.findById(req.user._id);
+    var re = await user.remove();
+    if (re) res.sendStatus(200);
+    else res.sendStatus(401)
+});
 
 module.exports = router;
