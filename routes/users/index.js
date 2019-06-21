@@ -38,4 +38,13 @@ router.delete('/profile/delete', async (req, res) => {
     else res.sendStatus(401)
 });
 
+router.post('/profile/update', (req, res) => {
+    var details = req.body;
+    var user = req.user;
+    user[user.method] = details;
+    User.findByIdAndUpdate(user._id, user)
+        .then(re => res.sendStatus(200))
+        .catch(e => res.sendStatus(401));
+});
+
 module.exports = router;
