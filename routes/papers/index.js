@@ -48,4 +48,17 @@ router.delete('/delete/:id', (req, res) => {
         });
 });
 
+router.get('/add/check/:id/:number',(req,res) => {
+    const id = req.params.id;
+    Paper.findById(id)
+        .then(doc => {
+            console.log(doc);
+            res.sendStatus(200)
+        })
+        .catch(e => {
+            console.log("error", e);
+            res.sendStatus(500)
+        });
+});
+
 module.exports = router;
