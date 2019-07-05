@@ -48,17 +48,38 @@ router.delete('/delete/:id', (req, res) => {
         });
 });
 
-router.get('/add/check/:id/:number',(req,res) => {
+router.get('/add/check/:id/:number', (req, res) => {
     const id = req.params.id;
     Paper.findById(id)
         .then(doc => {
-            console.log(doc);
+            console.log(doc.questions);
             res.sendStatus(200)
         })
         .catch(e => {
             console.log("error", e);
             res.sendStatus(500)
         });
+});
+
+router.post('/add/:id', (req, res) => {
+    const id = req.params.id;
+    // var item = {[req.body.number]: req.body};
+    // console.log(item);
+    Paper.findOne({_id: id})
+        .then(doc => {
+            // doc.questions = [];
+            console.log(doc.questions);
+            doc.questions.push(req.body);
+            console.log("doc", doc);
+            doc.save();
+            res.sendStatus(200)
+        })
+        .catch(e => {
+
+            console.log(e);
+            res.sendStatus(401)
+        });
+
 });
 
 module.exports = router;
